@@ -4,6 +4,7 @@ import MultiStepForm from "../components/RecordOfWork/MultiStepForm.vue";
 import Login from "../components/Auth/Login.vue";
 import AppComponent from "../components/AppComponent.vue";
 import Owner from "../components/Owner/Owner.vue";
+import Workers from "../components/Owner/MainLayout/Workers.vue";
 
 const routes = [
     {
@@ -16,13 +17,29 @@ const routes = [
                 name: 'multistep',
             },
             {
+
                 path: '/owner',
                 component: Owner,
-                name: 'owner',
+                name: 'owner'
             },
-
+            {
+                path: '/workers',
+                component: Workers,
+                name: 'workers',
+            },
+            // {
+            //     path: '/work',
+            //     component: Work,
+            //     name: 'works',
+            // },
+            // {
+            //     path: '/customer',
+            //     component: Customer,
+            //     name: 'customers',
+            // },
         ]
     },
+
     {
         path: '/login',
         component: Login,

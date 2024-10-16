@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Worker extends Model
 {
     protected $table = 'workers';
-
+    protected $fillable = ['worker_name', 'worker_lastname', 'number', 'wage'];
 
     public function works()
     {

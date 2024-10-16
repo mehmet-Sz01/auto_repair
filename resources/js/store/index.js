@@ -5,13 +5,11 @@ import router from "../router/router.js";
 const state = {
     user: null,
     authenticated: false,
-    authError: null, // Hataları saklamak için ek bir state
 };
 
 const getters = {
     user: state => state.user,
     authenticated: state => state.authenticated,
-    authError: state => state.authError, // Getter for error
 };
 
 const actions = {
@@ -36,7 +34,6 @@ const actions = {
 
             commit('setAuthenticate', true);
             commit('setUser', res.data.user);
-            commit('setAuthError', null); // Başarılı girişte hatayı sıfırla
 
             // Kullanıcı rolüne göre yönlendirme
             if (res.data.user_type === 'owner') {
@@ -54,7 +51,6 @@ const actions = {
             await axios.get('/api/logout');
             commit('setUser', null);
             commit('setAuthenticate', false);
-            commit('setAuthError', null); // Logout'ta hatayı sıfırla
             await router.push('/login');
         } catch (err) {
             console.error('Logout error:', err);
@@ -70,9 +66,7 @@ const mutations = {
     setUser(state, value) {
         state.user = value;
     },
-    setAuthError(state, error) {
-        state.authError = error; // Hataları sakla
-    }
+
 };
 
 const store = new Vuex.Store({
