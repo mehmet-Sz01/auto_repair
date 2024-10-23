@@ -12,10 +12,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
-import AppComponent from './components/AppComponent.vue'
 
 import router from "../js/router/router";
 import store from "./store/index";
+import MainLayout from "./components/Owner/MainLayout.vue";
 
 
 
@@ -23,7 +23,7 @@ import store from "./store/index";
 
 
 const app = createApp({});
-app.component('app-component', AppComponent );
+app.component('main-layout', MainLayout );
 app.use(PrimeVue);
 app.use(router);
 app.use(store);

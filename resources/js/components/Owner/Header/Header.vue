@@ -5,7 +5,7 @@
         </div>
 
         <!-- Sağ Taraf: Çıkış Yap Butonu -->
-        <button @click="handleLogout" class="flex items-center space-x-2 hover:text-gray-300 transition">
+        <button @click="logout" class="flex items-center space-x-2 hover:text-gray-300 transition">
             <span>Çıkış Yap</span>
             <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
         </button>
@@ -14,10 +14,11 @@
 
 <script setup>
 import { ref } from 'vue';
+import store from "@/store";
 
-function handleLogout() {
-    // Çıkış işlemleri burada gerçekleştirilecek
-    console.log('Çıkış yapıldı!');
-}
+const logout = () => {
+    store.dispatch('logout');
+};
+
 </script>
 

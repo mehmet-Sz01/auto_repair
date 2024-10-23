@@ -114,11 +114,13 @@ export default {
             return true;
         },
         submitForm() {
+
             if (this.validateStep(this.step)) {
                 axios.post('/api/save-form', {
                     customer: this.customer,
                     car: this.car,
                     work: this.work,
+
                 })
                     .then(response => {
                         alert(response.data.message);
@@ -126,7 +128,7 @@ export default {
                         this.resetForm();
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response.data);
                         alert("Kaydetme işlemi sırasında bir hata oluştu.");
                     });
             }

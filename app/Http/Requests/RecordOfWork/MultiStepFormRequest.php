@@ -17,19 +17,21 @@ class MultiStepFormRequest extends FormRequest
         return [
             'customer.first_name' => 'required|string|max:255',
             'customer.last_name' => 'required|string|max:255',
-            'customer.number' => 'required|string|max:20',
+            'customer.number' => 'required|string|max:255',
             'customer.email' => 'required|email|max:255',
-            'car.plate' => 'required|string|max:20',
+
+            'car.plate' => 'required|string|max:255',
             'car.brand' => 'required|string|max:255',
             'car.model' => 'required|string|max:255',
-            'car.color' => 'required|string|max:50',
+            'car.color' => 'required|string|max:255',
             'car.year' => 'required|date',
             'car.maintenance_date' => 'required|date',
             'car.inspection_date' => 'required|date',
+
             'work.work_title' => 'required|string|max:255',
-            'work.description' => 'required|string',
+            'work.description' => 'required|string|max:255',
+            'work.price' => 'required|numeric',
             'work.worker_id' => 'required|exists:workers,id',
-            'work.price' => 'required|numeric|min:0',
         ];
     }
 }

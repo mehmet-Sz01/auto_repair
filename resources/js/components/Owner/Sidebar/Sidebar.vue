@@ -9,8 +9,40 @@
                     <font-awesome-icon :icon="['fas', 'bars']" class="w-6 h-6" />
                 </button>
             </div>
-            <RouterLinks/>
+
+            <nav class="mt-4">
+                <ul>
+                    <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                        <router-link to="/owner" class="flex items-center">
+                            <font-awesome-icon :icon="['fas', 'house']" class="mr-2" />
+                            <span>Anasayfa</span>
+                        </router-link>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                        <router-link to="/workers" class="flex items-center">
+                            <font-awesome-icon :icon="['fas', 'user-gear']" class="mr-2" />
+                            <span>Çalışanlar</span>
+                        </router-link>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                        <router-link to="/works" class="flex items-center">
+                            <font-awesome-icon :icon="['fas', 'briefcase']" class="mr-2" />
+                            <span>Yapılan İşler</span>
+                        </router-link>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                        <router-link to="/customers" class="flex items-center">
+                            <font-awesome-icon :icon="['fas', 'user']" class="mr-2" />
+                            <span>Müşteriler</span>
+                        </router-link>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
+
+
+        <!-- Menü Kapalıyken Görünen Buton -->
         <div class="bg-gray-800 min-h-screen">
             <button v-if="!isMenuOpen" @click="toggleMenu" class="p-6 text-white bg-gray-800">
                 <font-awesome-icon :icon="['fas', 'bars']" class="w-6 h-6" />
@@ -20,10 +52,9 @@
 </template>
 
 <script>
-import RouterLinks from "../Sidebar/RouterLinks.vue";
+
 export default {
     name: 'Sidebar',
-    components: {RouterLinks},
     data() {
         return {
             isMenuOpen: true, // Menü başlangıçta açık

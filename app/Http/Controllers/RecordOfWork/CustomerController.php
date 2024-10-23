@@ -5,10 +5,11 @@ namespace App\Http\Controllers\RecordOfWork;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecordOfWork\CustomerRequest;
 use App\Models\RecordOfWork\Customer;
+use Illuminate\Http\JsonResponse;
 
 class CustomerController extends Controller
 {
-    public function store(CustomerRequest $request)
+    public function store(CustomerRequest $request): JsonResponse
     {
 
         $customer = Customer::create($request->only(['first_name', 'last_name', 'number', 'email']));

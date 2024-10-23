@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\RecordOfWork;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RecordOfWork\MultiStepFormRequest;
 use App\Http\Requests\RecordOfWork\WorkRequest;
 use App\Models\RecordOfWork\Work;
+use Illuminate\Http\JsonResponse;
 
 class WorkController extends Controller
 {
+    public function getWork()
+    {
+        return Work::all(['work_title', 'car_id', 'worker_id', 'description', 'price']);
 
+    }
 
-    public function store(WorkRequest $request)
+    public function store(MultiStepFormRequest $request):JsonResponse
     {
 
         $work = Work::create([

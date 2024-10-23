@@ -2,15 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 import store from "../store/index.js";
 import MultiStepForm from "../components/RecordOfWork/MultiStepForm.vue";
 import Login from "../components/Auth/Login.vue";
-import AppComponent from "../components/AppComponent.vue";
 import Owner from "../components/Owner/Owner.vue";
-import Workers from "../components/Owner/MainLayout/Workers.vue";
+import Workers from "../components/Owner/Content/Workers.vue";
+import Customers from "../components/Owner/Content/Customers.vue";
+import Works from "../components/Owner/Content/Works.vue";
 
 const routes = [
-    {
-        path: '/',
-        component: AppComponent,
-        children: [
+
             {
                 path: '/auto',
                 component: MultiStepForm,
@@ -20,24 +18,28 @@ const routes = [
 
                 path: '/owner',
                 component: Owner,
-                name: 'owner'
-            },
-            {
-                path: '/workers',
-                component: Workers,
-                name: 'workers',
-            },
-            // {
-            //     path: '/work',
-            //     component: Work,
-            //     name: 'works',
-            // },
-            // {
-            //     path: '/customer',
-            //     component: Customer,
-            //     name: 'customers',
-            // },
-        ]
+                name: 'owner',
+                children : [
+                    {
+                        path : '/workers',
+                        component : Workers,
+                        name : 'workers'
+                    },
+                    {
+                        path:  '/customers',
+                        component:  Customers,
+                         name : 'customers'
+
+                    },
+                    {
+                        path: '/Works',
+                        component: Works,
+                        name : 'works'
+                    }
+
+                ]
+
+
     },
 
     {
