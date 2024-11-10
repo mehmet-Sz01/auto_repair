@@ -31,6 +31,7 @@
 
                 <Column style="min-width:8rem">
                     <template #body="slotProps">
+                        <font-awesome-icon :icon="['fas', 'circle-info']" class="mr-2" @click="openInfoDialog(slotProps.data)"/>
                         <font-awesome-icon :icon="['fas', 'pen-to-square']" class="mr-2" @click="editItem(slotProps.data)" />
                         <font-awesome-icon :icon="['fas', 'trash-can']" @click="confirmDeleteItem(slotProps.data)" />
                     </template>
@@ -62,7 +63,7 @@
         <Dialog v-model:visible="deleteItemDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
             <div class="confirmation-content">
                 <i class="fa fa-exclamation-triangle mr-3" style="font-size: 2rem" />
-                <span v-if="item">Are you sure you want to delete <b>{{ item.worker_name }} {{ item.worker_lastname }}</b>?</span>
+                <span v-if="item">Are you sure you want to delete ?</span>
             </div>
             <template #footer>
                 <Button @click="deleteItemDialog = false" class="rounded-lg hover:bg-green-100 p-1 px-2">
@@ -75,11 +76,27 @@
                 </Button>
             </template>
         </Dialog>
+
+        <!-- Info Dialog -->
+        <Dialog v-model:visible="infoDialog" :style="{width: '450px'}" header="İş Detayları" :modal="true">
+            <div v-for="(field, index) in infoDialogFields" :key="index" class="field">
+                {{infoDialogFields.field}}
+                <label :for="field.id" class="font-bold">{{ field.label }}:</label>
+                <p class="w-full md:w-30rem mb-5 p-2 border rounded-lg bg-gray-100">{{ item[field.model] }}</p>
+            </div>
+            <template #footer>
+                <Button @click="infoDialog = false" class="rounded-lg hover:bg-green-100 p-1 px-2">
+                    <font-awesome-icon :icon="['fas', 'xmark']" class="mx-2"/>
+                    Kapat
+                </Button>
+            </template>
+        </Dialog>
+
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive, watch } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -89,80 +106,66 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 
 const props = defineProps({
-    initialItems: {
-        type: Array,
-        required: true,
-    },
-    columns: {
-        type: Array,
-        required: true,
-    },
-    dialogFields: {
-        type: Array,
-        required: true,
-    },
-    onItemSaved: {
-        type: Function,
-        required: true,
-    },
-    onItemDeleted: {
-        type: Function,
-        required: true,
-    }
+    infoDialogFields: Array,
+    initialItems: Array,
+    columns: Array,
+    dialogFields: Array,
+    onItemSaved: Function,
+    onItemDeleted: Function
 });
 
-const items = ref(props.initialItems);
+const items = ref([...props.initialItems]);
 const itemDialog = ref(false);
+const infoDialog = ref(false);
 const deleteItemDialog = ref(false);
-const item = ref({});
+const item = reactive({});
 const selectedItems = ref([]);
-const filters = ref({
+const filters = reactive({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 const submitted = ref(false);
 
-// Yeni öğe eklemek için dialog açma
+watch(() => props.initialItems, (newItems) => {
+    items.value = [...newItems];
+}, { immediate: true });
+
+const openInfoDialog = (data) => {
+    Object.assign(item, data);
+    infoDialog.value = true;
+};
+
 const openNew = () => {
-    item.value = {};
+    Object.keys(item).forEach(key => item[key] = '');
     submitted.value = false;
     itemDialog.value = true;
 };
 
-// Dialog'u kapatma işlemi
 const hideDialog = () => {
     itemDialog.value = false;
     submitted.value = false;
 };
 
-// Öğeyi kaydetme işlemi
-// Öğeyi kaydetme işlemi
 const saveItem = async () => {
     submitted.value = true;
-
-    // Burada sadece item objesinde var olan tüm alanları kullanıyoruz
-    if (Object.keys(item.value).length > 0) {
-        // Kayıt işlemi (ekleme veya güncelleme)
-        await props.onItemSaved(item.value);
+    if (Object.keys(item).length > 0) {
+        await props.onItemSaved({ ...item });
         hideDialog();
     }
 };
 
-
-// Öğeyi silme onayı
 const confirmDeleteItem = (data) => {
-    item.value = { ...data };
+    Object.assign(item, data);
     deleteItemDialog.value = true;
 };
 
-// Öğeyi silme işlemi
 const deleteItem = async () => {
-    await props.onItemDeleted(item.value);
+    await props.onItemDeleted({ ...item });
     deleteItemDialog.value = false;
-    item.value = {};
+    Object.keys(item).forEach(key => item[key] = '');
 };
 
 const editItem = (data) => {
-    item.value = { ...data };
+    Object.assign(item, data);
     itemDialog.value = true;
 };
 </script>

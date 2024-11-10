@@ -24,7 +24,7 @@ class WorkerController extends Controller
 
     public function getWorker()
     {
-        return Worker::all(['id', 'worker_name', 'worker_lastname', 'number', 'wage']);
+        return Worker::with('works')->get();
     }
 
     public function updateWorker(WorkerRequest $request, $id)

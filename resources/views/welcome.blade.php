@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Auto Repair</title>
-
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -19,5 +18,7 @@
 </div>
 
    @vite('resources/js/app.js')
+
+
 </body>
 </html>

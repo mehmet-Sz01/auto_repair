@@ -7,6 +7,8 @@ const state = {
     authenticated: false,
 };
 
+
+
 const getters = {
     user: state => state.user,
     authenticated: state => state.authenticated,
@@ -27,10 +29,18 @@ const actions = {
             }
         }
     },
+
     async login({ commit }, authData) {
+        const recaptchaResponse  = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            error('Lütfen reCAPTCHA doğrulamasını tamamlayın.');
+            return;
+        }
         try {
             await axios.get('/sanctum/csrf-cookie');
-            const res = await axios.post('/api/login', { ...authData });
+            const res = await axios.post('/api/login', { ...authData,
+                'g-recaptcha-response': recaptchaResponse ,
+            });
 
             commit('setAuthenticate', true);
             commit('setUser', res.data.user);
@@ -43,7 +53,7 @@ const actions = {
             }
         } catch (err) {
             console.error('Login error:', err);
-            commit('setAuthError', err.response?.data?.message || 'Login failed');
+            toast.commit('setAuthError', err.response?.data?.message || 'Login failed');
         }
     },
     async logout({ commit }) {

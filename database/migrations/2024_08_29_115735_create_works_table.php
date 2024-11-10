@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('work_title');
             $table->foreignId('car_id')->constrained('cars')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('worker_id')->constrained('workers')->onDelete('cascade');
             $table->text('description');
             $table->decimal('price', 8, 2);

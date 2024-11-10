@@ -1,7 +1,7 @@
 <template>
     <div>
         <DataTableComponent
-            :initialItems="customers"
+            :initialItems="customers.items"
             :columns="customerColumns"
             :dialogFields="customerDialogFields"
             :onItemSaved="handleItemSaved"
@@ -11,29 +11,29 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import {onMounted, reactive} from 'vue';
 import DataTableComponent from '../DataTable/DataTableComponent.vue';
 import axios from 'axios';
 
-const customers = ref([]);
+const customers = reactive({items:[]});
 const customerColumns = [
-    {field: 'customer_name', header: 'Name', style: 'min-width:10rem'},
-    {field: 'customer_lastname', header: 'Surname', style: 'min-width:10rem'},
+    {field: 'first_name', header: 'Name', style: 'min-width:10rem'},
+    {field: 'last_name', header: 'Surname', style: 'min-width:10rem'},
     {field: 'email', header: 'Email', style: 'min-width:10rem'},
-    {field: 'phone', header: 'Phone', style: 'min-width:10rem'},
+    {field: 'number', header: 'Number', style: 'min-width:10rem'},
 ];
 const customerDialogFields = [
-    {id: 'name', label: 'Name', model: 'customer_name'},
-    {id: 'lastname', label: 'Surname', model: 'customer_lastname'},
+    {id: 'name', label: 'Name', model: 'first_name'},
+    {id: 'lastname', label: 'Surname', model: 'last_name'},
     {id: 'email', label: 'Email', model: 'email'},
-    {id: 'phone', label: 'Phone', model: 'phone'},
+    {id: 'number', label: 'Number', model: 'number'},
 ];
 
 // Müşteri verilerini al
 const fetchCustomers = async () => {
     try {
         const response = await axios.get('/api/customers');
-        customers.value = response.data;
+        customers.items = response.data;
     } catch (error) {
         console.error("Müşterileri çekerken hata oluştu:", error);
     }
@@ -65,7 +65,7 @@ const handleItemDeleted = async (deletedItem) => {
     }
 };
 
-onMounted(() => {
-    fetchCustomers();
+onMounted(async () => {
+    await fetchCustomers();
 });
 </script>

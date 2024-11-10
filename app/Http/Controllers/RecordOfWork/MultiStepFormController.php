@@ -15,6 +15,7 @@ class MultiStepFormController extends Controller
 {
     public function saveForm(MultiStepFormRequest $request): JsonResponse
     {
+
         $validated = $request->validate([
             'customer.first_name' => 'required|string|max:255',
             'customer.last_name' => 'required|string|max:255',
@@ -46,6 +47,7 @@ class MultiStepFormController extends Controller
 // İş Bilgileri Kaydet
         $work = new Work($validated['work']);
         $work->car_id = $car->id;
+        $work->customer_id = $customer->id;
         $work->save();
 
 // Tüm yanıtları birleştirerek döndürüyoruz
