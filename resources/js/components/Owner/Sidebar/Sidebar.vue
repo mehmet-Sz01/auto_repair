@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <!-- Sidebar -->
-        <div v-if="isMenuOpen" class="h-screen w-64 bg-gray-800 text-white flex flex-col">
+        <div v-if="isMenuOpen" class="h-full-screen w-64 bg-gray-800 text-white flex flex-col">
             <!-- Sidebar Header -->
             <div class="px-4 py-5 text-lg font-semibold border-b border-gray-700 flex justify-between items-center">
                 <img src="/image/png-transparent-car-automobile-repair-shop-maintenance-motor-vehicle-service-jason-s-auto-repair-car.png" alt="IMS Logo" class="w-30 h-14 mx-auto">
@@ -21,19 +21,31 @@
                     <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
                         <router-link to="/workers" class="flex items-center">
                             <font-awesome-icon :icon="['fas', 'user-gear']" class="mr-2" />
-                            <span>Çalışanlar</span>
+                            <span>Çalışan Bilgileri</span>
                         </router-link>
                     </li>
                     <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
                         <router-link to="/works" class="flex items-center">
                             <font-awesome-icon :icon="['fas', 'briefcase']" class="mr-2" />
-                            <span>Yapılan İşler</span>
+                            <span>Yapılan İş Bilgileri</span>
                         </router-link>
                     </li>
                     <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
                         <router-link to="/customers" class="flex items-center">
                             <font-awesome-icon :icon="['fas', 'user']" class="mr-2" />
-                            <span>Müşteriler</span>
+                            <span>Müşteri Bilgileri</span>
+                        </router-link>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                        <router-link to="/maintenance-inspection" class="flex items-center">
+                            <font-awesome-icon :icon="['fas', 'screwdriver-wrench']" class="mr-2" />
+                            <span>Bakım ve Muayene Takip</span>
+                        </router-link>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                        <router-link to="/auto" class="flex items-center">
+                            <font-awesome-icon :icon="['fas', 'wrench']" class="mr-2" />
+                            <span>İş Kaydı</span>
                         </router-link>
                     </li>
                 </ul>

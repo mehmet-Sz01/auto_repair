@@ -1,18 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from "../store/index.js";
-import MultiStepForm from "../components/RecordOfWork/MultiStepForm.vue";
 import Login from "../components/Auth/Login.vue";
 import Owner from "../components/Owner/Owner.vue";
 import Workers from "../components/Owner/Content/Workers.vue";
 import Customers from "../components/Owner/Content/Customers.vue";
 import Works from "../components/Owner/Content/Works.vue";
+import MaintenanceInspection from "../components/Owner/Content/MaintenanceInspection.vue"
+import RecordOfWork from "../components/RecordOfWork/RecordOfWork.vue";
 
 const routes = [
 
             {
                 path: '/auto',
-                component: MultiStepForm,
-                name: 'multistep',
+                component: RecordOfWork,
+                name: 'record-of-work',
             },
             {
 
@@ -35,8 +36,12 @@ const routes = [
                         path: '/Works',
                         component: Works,
                         name : 'works'
+                    },
+                    {
+                        path: '/maintenance-inspection',
+                        component: MaintenanceInspection,
+                        name : 'maintenance-inspection'
                     }
-
                 ]
 
 

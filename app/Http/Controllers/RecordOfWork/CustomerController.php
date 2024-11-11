@@ -20,7 +20,7 @@ class CustomerController extends Controller
     public function store(MultiStepFormRequest $request): JsonResponse
     {
 
-        $customer = Customer::create($request->only(['first_name', 'last_name', 'number', 'email']));
+        $customer = Customer::create($request->only(['first_name', 'last_name', 'number', 'emails']));
 
         return response()->json(['message' => 'Müşteri başarıyla kaydedildi!', 'customer' => $customer], 201);
     }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card">
-            <DataTable ref="dt" :value="items" v-model:selection="selectedItems" dataKey="id"
+            <DataTable ref="dt" :value="items" scrollable scrollHeight="495px" v-model:selection="selectedItems" dataKey="id"
                        class="border-2"
                        :paginator="true" :rows="10" :filters="filters"
                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -19,7 +19,7 @@
                             </div>
                         </template>
                         <template #end>
-                            <Button class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg gap-3 hover:bg-green-600" @click="openNew">
+                            <Button v-if="newButtonSection" class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg gap-3 hover:bg-green-600" @click="openNew">
                                 <font-awesome-icon :icon="['fas', 'plus']" />
                                 New
                             </Button>
@@ -31,9 +31,10 @@
 
                 <Column style="min-width:8rem">
                     <template #body="slotProps">
-                        <font-awesome-icon :icon="['fas', 'circle-info']" class="mr-2" @click="openInfoDialog(slotProps.data)"/>
-                        <font-awesome-icon :icon="['fas', 'pen-to-square']" class="mr-2" @click="editItem(slotProps.data)" />
-                        <font-awesome-icon :icon="['fas', 'trash-can']" @click="confirmDeleteItem(slotProps.data)" />
+                        <font-awesome-icon :icon="['fas', 'circle-info']" v-if="isWorkSection" class="mr-2" @click="openInfoDialog(slotProps.data)"/>
+                        <font-awesome-icon :icon="['fas', 'pen-to-square']" v-if="isEditSection" class="mr-2" @click="editItem(slotProps.data)" />
+                        <font-awesome-icon :icon="['fas', 'trash-can']" v-if="isDeleteSection" class="mr-2" @click="confirmDeleteItem(slotProps.data)" />
+                        <font-awesome-icon :icon="['fas', 'wrench']" v-if="isMaintenanceSection" class="mr-2" @click="editItem(slotProps.data)"/>
                     </template>
                 </Column>
             </DataTable>
@@ -80,7 +81,6 @@
         <!-- Info Dialog -->
         <Dialog v-model:visible="infoDialog" :style="{width: '450px'}" header="İş Detayları" :modal="true">
             <div v-for="(field, index) in infoDialogFields" :key="index" class="field">
-                {{infoDialogFields.field}}
                 <label :for="field.id" class="font-bold">{{ field.label }}:</label>
                 <p class="w-full md:w-30rem mb-5 p-2 border rounded-lg bg-gray-100">{{ item[field.model] }}</p>
             </div>
@@ -106,12 +106,19 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 
 const props = defineProps({
+    isXmarkSection: Boolean,
+    isCheckSection:Boolean,
+    isDeleteSection: Boolean,
+    isEditSection: Boolean,
+    newButtonSection: Boolean,
+    isWorkSection: Boolean,
+    isMaintenanceSection: Boolean,
     infoDialogFields: Array,
     initialItems: Array,
     columns: Array,
     dialogFields: Array,
     onItemSaved: Function,
-    onItemDeleted: Function
+    onItemDeleted: Function,
 });
 
 const items = ref([...props.initialItems]);

@@ -19,13 +19,14 @@
         "@fortawesome/fontawesome-svg-core": "^6.6.0",
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
         "@fortawesome/vue-fontawesome": "^3.0.8",
+        "dayjs": "^1.11.13",
         "postcss": "^8.4.39",
         "primeflex": "^3.3.1",
         "primeicons": "^6.0.1",
         "primevue": "^3.39.0",
         "tailwindcss": "^3.4.4",
-        "vue-recaptcha-v3": "^2.0.1",
         "vue-recaptcha": "^3.0.0-alpha.6",
+        "vue-recaptcha-v3": "^2.0.1",
         "vue-router": "^4.4.0",
         "vuex": "^4.1.0"
     }
