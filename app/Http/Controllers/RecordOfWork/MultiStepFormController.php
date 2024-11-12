@@ -20,7 +20,7 @@ class MultiStepFormController extends Controller
             'customer.first_name' => 'required|string|max:255',
             'customer.last_name' => 'required|string|max:255',
             'customer.number' => 'required|string|max:255',
-            'customer.emails' => 'required|emails|max:255',
+            'customer.email' => 'required|email|max:255',
 
             'car.plate' => 'required|string|max:255',
             'car.brand' => 'required|string|max:255',
